@@ -1,0 +1,14 @@
+matplotlib         
+numpy             
+onnx                
+onnxruntime         
+onnxruntime-gpu 
+opencv-python       
+optimum             
+pandas             
+pillow              
+shapely            
+torch               
+torchvision       
+transformers        
+ultralytics         
