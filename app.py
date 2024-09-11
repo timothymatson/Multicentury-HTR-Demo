@@ -1,10 +1,12 @@
 from optimum.onnxruntime import ORTModelForVision2Seq
 from transformers import TrOCRProcessor
+from huggingface_hub import login
 from ultralytics import YOLO
 import gradio as gr
 import numpy as np
 import onnxruntime
 import time
+import os
 
 from plotting_functions import PlotHTR
 from segment_image import SegmentImage
@@ -16,6 +18,7 @@ REGION_MODEL_PATH = "Kansallisarkisto/court-records-region-detection"
 TROCR_PROCESSOR_PATH = "Kansallisarkisto/multicentury-htr-model-onnx"
 TROCR_MODEL_PATH = "Kansallisarkisto/multicentury-htr-model-onnx"
 
+login(token=os.getenv("HF_TOKEN"))
 
 def get_segmenter():
     """Initialize segmentation class."""
