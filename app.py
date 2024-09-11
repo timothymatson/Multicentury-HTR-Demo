@@ -131,4 +131,5 @@ with gr.Blocks(theme=gr.themes.Monochrome(), title="Multicentury HTR Demo") as d
                  outputs=[region_img, line_img, textbox, processing_time])
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.queue()
+    demo.launch(show_error=True)
