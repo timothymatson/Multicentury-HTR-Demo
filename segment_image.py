@@ -182,7 +182,7 @@ class SegmentImage:
 
     def get_region_preds(self, img):
         """Function for predicting text region coordinates."""
-        results = self.region_model.predict(source=img,     
+        results = self.region_model.segment(source=img,     
                                             device=self.device, 
                                             conf=self.region_conf_threshold, 
                                             half=bool(self.region_half_precision), 
@@ -211,7 +211,7 @@ class SegmentImage:
 
     def get_line_preds(self, img):
         """Function for predicting text line coordinates."""
-        results = self.line_model.predict(source=img, 
+        results = self.line_model.segment(source=img, 
                                         device=self.device, 
                                         conf=self.line_conf_threshold, 
                                         half=bool(self.line_half_precision),
