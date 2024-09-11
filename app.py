@@ -96,10 +96,14 @@ with gr.Blocks(theme=gr.themes.Monochrome(), title="Multicentury HTR Demo") as d
         # Predict region and line segments
         start = time.time()
         segment_predictions = segmenter.get_segmentation(image)
+        print('segmentation ok')
         if segment_predictions:
             region_plot = plotter.plot_regions(segment_predictions, image)
+            print('region plot ok')
             line_plot = plotter.plot_lines(segment_predictions, image)
+            print('line plot ok')
             text_predictions = get_text_predictions(np.array(image), segment_predictions, recognizer)
+            print('text pred ok')
             text = "\n".join(text_predictions)
             end = time.time()
             proc_time = end - start
