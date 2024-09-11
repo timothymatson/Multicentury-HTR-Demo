@@ -1,7 +1,6 @@
 from optimum.onnxruntime import ORTModelForVision2Seq
 from transformers import TrOCRProcessor
 from huggingface_hub import login
-from ultralyticsplus import YOLO
 import gradio as gr
 import numpy as np
 import onnxruntime
