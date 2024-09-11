@@ -1,3 +1,4 @@
+from huggingface_hub import hf_hub_download
 from shapely.validation import make_valid
 from shapely.geometry import Polygon
 from ultralyticsplus import YOLO
@@ -59,7 +60,8 @@ class SegmentImage:
         """Function for initializing the line detection model."""
         try:
             # Load the trained line detection model
-            line_model = YOLO(self.line_model_path, hf_token=os.getenv("HF_TOKEN"))
+            cached_model_path = hf_hub_download(repo_id=self.line_model_path, filename="lines_20240827.pt")
+            line_model = YOLO(cached_model_path, hf_token=os.getenv("HF_TOKEN"))
             return line_model
         except Exception as e:
             print('Failed to load the line detection model: %s' % e)
@@ -68,7 +70,8 @@ class SegmentImage:
         """Function for initializing the region detection model."""
         try:
             # Load the trained line detection model
-            region_model = YOLO(self.region_model_path, hf_token=os.getenv("HF_TOKEN"))
+            cached_model_path = hf_hub_download(repo_id=self.region_model_path, filename="tuomiokirja_regions_04122023.pt")
+            region_model = YOLO(cached_model_path, hf_token=os.getenv("HF_TOKEN"))
             return region_model
         except Exception as e:
             print('Failed to load the region detection model: %s' % e)
@@ -182,11 +185,11 @@ class SegmentImage:
 
     def get_region_preds(self, img):
         """Function for predicting text region coordinates."""
-        results = self.region_model(source=img,     
-                                    device=self.device, 
-                                    conf=self.region_conf_threshold, 
-                                    half=bool(self.region_half_precision), 
-                                    iou=self.region_nms_iou)
+        results = self.region_model.predict(source=img,     
+                                            device=self.device, 
+                                            conf=self.region_conf_threshold, 
+                                            half=bool(self.region_half_precision), 
+                                            iou=self.region_nms_iou)
         results = results[0].cpu()
         if results.masks:
             # Extracts detected region polygons
@@ -211,11 +214,11 @@ class SegmentImage:
 
     def get_line_preds(self, img):
         """Function for predicting text line coordinates."""
-        results = self.line_model(source=img, 
-                                  device=self.device, 
-                                  conf=self.line_conf_threshold, 
-                                  half=bool(self.line_half_precision),
-                                  iou=self.line_nms_iou)
+        results = self.line_model.predict(source=img, 
+                                          device=self.device, 
+                                          conf=self.line_conf_threshold, 
+                                          half=bool(self.line_half_precision),
+                                          iou=self.line_nms_iou)
         results = results[0].cpu()
         if results.masks:
             # Detected text line polygons 
