@@ -12,7 +12,7 @@ class TextRecognition:
                 model_path, 
                 device = 'cpu', 
                 half_precision = False,
-                line_threshold = 120):
+                line_threshold = 10):
         self.device = device
         self.half_precision = half_precision
         self.line_threshold = line_threshold
@@ -94,6 +94,7 @@ class TextRecognition:
                 end = int(min(start + self.line_threshold, len(cropped_lines)))
                 sc, gt = self.predict_text(cropped_lines[start:end])
                 scores += sc
+                print(gt)
                 generated_text += gt
         return scores, generated_text
             
