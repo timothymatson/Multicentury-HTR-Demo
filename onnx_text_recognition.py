@@ -89,6 +89,7 @@ class TextRecognition:
         else:
             n = math.ceil(len(cropped_lines) / self.line_threshold)
             for i in range(n):
+                print(i)
                 start = int(i * self.line_threshold)
                 end = int(min(start + self.line_threshold, len(cropped_lines)))
                 sc, gt = self.predict_text(cropped_lines[start:end])
@@ -107,7 +108,9 @@ class TextRecognition:
 
     def process_lines(self, polygons, image, height, width):
         # Crop line images
+        print('starting text generation')
         cropped_lines = self.crop_lines(polygons, image, height, width)
+        print('cropped lines')
         # Get text predictions
         scores, generated_text = self.get_text_lines(cropped_lines)
         return generated_text
