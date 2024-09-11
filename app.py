@@ -15,8 +15,8 @@ from onnx_text_recognition import TextRecognition
 
 LINE_MODEL_PATH = "Kansallisarkisto/multicentury-textline-detection"
 REGION_MODEL_PATH = "Kansallisarkisto/court-records-region-detection"
-TROCR_PROCESSOR_PATH = "Kansallisarkisto/multicentury-htr-model-onnx/202405_processor"
-TROCR_MODEL_PATH = "Kansallisarkisto/multicentury-htr-model-onnx/202405_onnx"
+TROCR_PROCESSOR_PATH = "Kansallisarkisto/multicentury-htr-model-onnx"
+TROCR_MODEL_PATH = "Kansallisarkisto/multicentury-htr-model-onnx"
 
 login(token=os.getenv("HF_TOKEN"), add_to_git_credential=True)
 
