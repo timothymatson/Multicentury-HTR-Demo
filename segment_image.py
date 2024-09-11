@@ -3,6 +3,7 @@ from shapely.geometry import Polygon
 from ultralyticsplus import YOLO
 from PIL import Image
 import numpy as np
+import os
 
 from reading_order import OrderPolygons
 
@@ -58,7 +59,7 @@ class SegmentImage:
         """Function for initializing the line detection model."""
         try:
             # Load the trained line detection model
-            line_model = YOLO(self.line_model_path, task="instance-segmentation")
+            line_model = YOLO(self.line_model_path, hf_token=os.getenv("HF_TOKEN"))
             return line_model
         except Exception as e:
             print('Failed to load the line detection model: %s' % e)
@@ -67,7 +68,7 @@ class SegmentImage:
         """Function for initializing the region detection model."""
         try:
             # Load the trained line detection model
-            region_model = YOLO(self.region_model_path, task="instance-segmentation")
+            region_model = YOLO(self.region_model_path, hf_token=os.getenv("HF_TOKEN"))
             return region_model
         except Exception as e:
             print('Failed to load the region detection model: %s' % e)
