@@ -1,7 +1,7 @@
 from huggingface_hub import hf_hub_download
 from shapely.validation import make_valid
 from shapely.geometry import Polygon
-from ultralyticsplus import YOLO
+from ultralytics import YOLO
 from PIL import Image
 import numpy as np
 import os
