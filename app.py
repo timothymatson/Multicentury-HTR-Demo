@@ -13,8 +13,8 @@ from onnx_text_recognition import TextRecognition
 
 LINE_MODEL_PATH = "Kansallisarkisto/multicentury-textline-detection"
 REGION_MODEL_PATH = "Kansallisarkisto/court-records-region-detection"
-TROCR_PROCESSOR_PATH = "Kansallisarkisto/multicentury-htr-model-onnx/202405_processor/"
-TROCR_MODEL_PATH = "Kansallisarkisto/multicentury-htr-model-onnx/202405_onnx/"
+TROCR_PROCESSOR_PATH = "Kansallisarkisto/multicentury-htr-model-onnx"
+TROCR_MODEL_PATH = "Kansallisarkisto/multicentury-htr-model-onnx"
 
 
 def get_segmenter():
@@ -75,8 +75,8 @@ def get_text_predictions(image, segment_predictions, recognizer):
     return texts
 
 # Run demo code
-with gr.Blocks(theme=gr.themes.Monochrome(), title="HTR demo") as demo:
-    gr.Markdown("# HTR demo")
+with gr.Blocks(theme=gr.themes.Monochrome(), title="Multicentury HTR Demo") as demo:
+    gr.Markdown("# Multicentury HTR Demo")
     with gr.Tab("Text content"):
         with gr.Row():
             input_img = gr.Image(label="Input image", type="pil")
