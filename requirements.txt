@@ -11,4 +11,4 @@ shapely
 torch               
 torchvision       
 transformers        
-ultralyticsplus      
+ultralytics
