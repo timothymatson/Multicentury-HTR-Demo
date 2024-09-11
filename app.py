@@ -47,7 +47,7 @@ def get_recognizer():
                         model_path = TROCR_MODEL_PATH, 
                         device = 'cpu', 
                         half_precision = True,
-                        line_threshold = 100
+                        line_threshold = 10
                     )
         return recognizer
     except Exception as e:
