@@ -1,6 +1,6 @@
 from shapely.validation import make_valid
 from shapely.geometry import Polygon
-from ultralytics import YOLO
+from ultralyticsplus import YOLO
 from PIL import Image
 import numpy as np
 
