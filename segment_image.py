@@ -61,7 +61,7 @@ class SegmentImage:
         try:
             # Load the trained line detection model
             cached_model_path = hf_hub_download(repo_id=self.line_model_path, filename="lines_20240827.pt")
-            line_model = YOLO(cached_model_path, hf_token=os.getenv("HF_TOKEN"))
+            line_model = YOLO(cached_model_path)
             return line_model
         except Exception as e:
             print('Failed to load the line detection model: %s' % e)
@@ -71,7 +71,7 @@ class SegmentImage:
         try:
             # Load the trained line detection model
             cached_model_path = hf_hub_download(repo_id=self.region_model_path, filename="tuomiokirja_regions_04122023.pt")
-            region_model = YOLO(cached_model_path, hf_token=os.getenv("HF_TOKEN"))
+            region_model = YOLO(cached_model_path)
             return region_model
         except Exception as e:
             print('Failed to load the region detection model: %s' % e)
