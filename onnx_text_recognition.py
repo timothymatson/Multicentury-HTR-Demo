@@ -24,7 +24,7 @@ class TextRecognition:
     def init_processor(self):
         """Function for initializing the processor."""
         try:
-            processor = TrOCRProcessor.from_pretrained(self.processor_path)
+            processor = TrOCRProcessor.from_pretrained(self.processor_path, use_auth_token=True)
             return processor
         except Exception as e:
             print('Failed to initialize processor: %s' % e)
@@ -35,7 +35,7 @@ class TextRecognition:
         sess_options.intra_op_num_threads = 3
         sess_options.inter_op_num_threads = 3
         try:
-            recognition_model = ORTModelForVision2Seq.from_pretrained(self.model_path)#, session_options=sess_options, provider="CUDAExecutionProvider")
+            recognition_model = ORTModelForVision2Seq.from_pretrained(self.model_path, use_auth_token=True)#, session_options=sess_options, provider="CUDAExecutionProvider")
             return recognition_model
         except Exception as e:
             print('Failed to load the text recognition model: %s' % e)
