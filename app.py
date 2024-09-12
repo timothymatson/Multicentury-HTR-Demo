@@ -27,7 +27,7 @@ def get_segmenter():
     """Initialize segmentation class."""
     try:
         segmenter = SegmentImage(line_model_path=LINE_MODEL_PATH, 
-                            device='cuda:0', 
+                            device='0', 
                             line_iou=0.3,
                             region_iou=0.5,
                             line_overlap=0.5,
@@ -49,7 +49,7 @@ def get_recognizer():
         recognizer = TextRecognition(
                         processor_path = TROCR_PROCESSOR_PATH, 
                         model_path = TROCR_MODEL_PATH, 
-                        device = '0', 
+                        device = 'cuda:0', 
                         half_precision = True,
                         line_threshold = 10
                     )
