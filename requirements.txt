@@ -1,7 +1,5 @@
 matplotlib         
-numpy             
-onnx                
-onnxruntime         
+numpy                     
 onnxruntime-gpu 
 opencv-python       
 optimum             
