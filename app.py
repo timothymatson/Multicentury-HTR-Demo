@@ -4,6 +4,7 @@ from huggingface_hub import login
 import gradio as gr
 import numpy as np
 import onnxruntime
+import torch
 import time
 import os
 
@@ -19,11 +20,14 @@ TROCR_MODEL_PATH = "Kansallisarkisto/multicentury-htr-model-onnx"
 
 login(token=os.getenv("HF_TOKEN"), add_to_git_credential=True)
 
+print(f"Is CUDA available: {torch.cuda.is_available()}")
+print(f"CUDA device: {torch.cuda.get_device_name(torch.cuda.current_device())}")
+
 def get_segmenter():
     """Initialize segmentation class."""
     try:
         segmenter = SegmentImage(line_model_path=LINE_MODEL_PATH, 
-                            device='cpu', 
+                            device='cuda:0', 
                             line_iou=0.3,
                             region_iou=0.5,
                             line_overlap=0.5,
@@ -45,7 +49,7 @@ def get_recognizer():
         recognizer = TextRecognition(
                         processor_path = TROCR_PROCESSOR_PATH, 
                         model_path = TROCR_MODEL_PATH, 
-                        device = 'cpu', 
+                        device = '0', 
                         half_precision = True,
                         line_threshold = 10
                     )
@@ -99,9 +103,7 @@ with gr.Blocks(theme=gr.themes.Monochrome(), title="Multicentury HTR Demo") as d
         print('segmentation ok')
         if segment_predictions:
             region_plot = plotter.plot_regions(segment_predictions, image)
-            print('region plot ok')
             line_plot = plotter.plot_lines(segment_predictions, image)
-            print('line plot ok')
             text_predictions = get_text_predictions(np.array(image), segment_predictions, recognizer)
             print('text pred ok')
             text = "\n".join(text_predictions)
