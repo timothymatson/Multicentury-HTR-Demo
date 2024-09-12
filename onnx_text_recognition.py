@@ -10,7 +10,7 @@ class TextRecognition:
     def __init__(self, 
                 processor_path, 
                 model_path, 
-                device = 'cpu', 
+                device = 'cuda:0', 
                 half_precision = False,
                 line_threshold = 10):
         self.device = device
@@ -35,7 +35,7 @@ class TextRecognition:
         sess_options.intra_op_num_threads = 3
         sess_options.inter_op_num_threads = 3
         try:
-            recognition_model = ORTModelForVision2Seq.from_pretrained(self.model_path, token=True)#, session_options=sess_options, provider="CUDAExecutionProvider")
+            recognition_model = ORTModelForVision2Seq.from_pretrained(self.model_path, token=True, session_options=sess_options, provider="CUDAExecutionProvider")
             return recognition_model
         except Exception as e:
             print('Failed to load the text recognition model: %s' % e)
