@@ -83,6 +83,11 @@ def get_text_predictions(image, segment_predictions, recognizer):
 # Run demo code
 with gr.Blocks(theme=gr.themes.Monochrome(), title="Multicentury HTR Demo") as demo:
     gr.Markdown("# Multicentury HTR Demo")
+    gr.Markdown("The HTR pipeline contains three components: text region detection, textline detection and handwritten text recognition.\
+    The components run machine learning models that have been trained at the National Archives of Finland using mostly handwritten documents\
+    from 17th, 18th, 19th and 20th centuries. Best results are probably obtained when using high quality scans of documents with a regular layout.\
+    Input image can be uploaded using the *Input image* window in the *Text content* tab, and the predicted text content will appear to the window\
+    on the right side of the image. Results of text region and text line detection can be viewed in the *Text regions* and *Text lines* tabs.)
     with gr.Tab("Text content"):
         with gr.Row():
             input_img = gr.Image(label="Input image", type="pil")
