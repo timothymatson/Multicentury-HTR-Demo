@@ -44,18 +44,17 @@ class TextRecognition:
         """Crops predicted text line based on the polygon coordinates
         and returns binarised text line image."""
         poly = np.array([[int(lst[0]), int(lst[1])] for lst in polygon])
-        mask = np.zeros([height, width], dtype=np.uint8)
-        cv2.drawContours(mask, [poly], -1, (255, 255, 255), -1, cv2.LINE_AA)
-        rect = cv2.boundingRect(poly)
-        cropped = image[rect[1]: rect[1] + rect[3], rect[0]: rect[0] + rect[2]]
-        
-        mask_crop = mask[rect[1]: rect[1] + rect[3], rect[0]: rect[0] + rect[2]]
-        res = cv2.bitwise_and(cropped, cropped, mask = mask_crop)
 
-        wbg = np.ones_like(cropped, np.uint8) * 255
-        cv2.bitwise_not(wbg,wbg, mask=mask_crop)
-        row_image = wbg+res    
-        return row_image
+        rect = cv2.boundingRect(polygon)
+        cropped_image = image[rect[1]: rect[1] + rect[3], rect[0]: rect[0] + rect[2]]
+        mask = np.zeros([rect[3], rect[2]], dtype=np.uint8)
+        cv2.drawContours(mask, [polygon- np.array([[rect[0],rect[1]]])], -1, (255, 255, 255), -1, cv2.LINE_AA)
+        res = cv2.bitwise_and(cropped_image, cropped_image, mask = mask)
+        wbg = np.ones_like(cropped_image, np.uint8)*255
+        cv2.bitwise_not(wbg,wbg, mask=mask)
+        # Overlap the resulted cropped image on the white background
+        dst = wbg+res
+        return dst
 
     def crop_lines(self, polygons, image, height, width):
         """Returns a list of line images cropped following the detected polygon coordinates."""
