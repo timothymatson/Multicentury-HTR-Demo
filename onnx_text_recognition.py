@@ -43,7 +43,7 @@ class TextRecognition:
     def crop_line(self, image, polygon, height, width):
         """Crops predicted text line based on the polygon coordinates
         and returns binarised text line image."""
-        poly = np.array([[int(lst[0]), int(lst[1])] for lst in polygon], dtype=np.int32)
+        polygon = np.array([[int(lst[0]), int(lst[1])] for lst in polygon], dtype=np.int32)
         rect = cv2.boundingRect(polygon)
         cropped_image = image[rect[1]: rect[1] + rect[3], rect[0]: rect[0] + rect[2]]
         mask = np.zeros([rect[3], rect[2]], dtype=np.uint8)
