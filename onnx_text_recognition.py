@@ -46,7 +46,7 @@ class TextRecognition:
         polygon = np.array([[int(lst[0]), int(lst[1])] for lst in polygon], dtype=np.int32)
         rect = cv2.boundingRect(polygon)
         cropped_image = image[rect[1]: rect[1] + rect[3], rect[0]: rect[0] + rect[2]]
-        mask = np.zeros([rect[3], rect[2]], dtype=np.uint8)
+        mask = np.zeros([cropped_image.shape[0], cropped_image.shape[1]], dtype=np.uint8)
         cv2.drawContours(mask, [polygon- np.array([[rect[0],rect[1]]])], -1, (255, 255, 255), -1, cv2.LINE_AA)
         res = cv2.bitwise_and(cropped_image, cropped_image, mask = mask)
         wbg = np.ones_like(cropped_image, np.uint8)*255
