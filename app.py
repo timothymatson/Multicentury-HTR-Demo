@@ -89,7 +89,22 @@ with gr.Blocks(theme=gr.themes.Monochrome(), title="Multicentury HTR Demo") as d
     
     Input image can be uploaded using the *Input image* window in the *Text content* tab, and the predicted text content will appear to the window
     on the right side of the image. Results of text region and text line detection can be viewed in the *Text regions* and *Text lines* tabs.
-    Best results are obtained when using high quality scans of documents with a regular layout.""")
+    Best results are obtained when using high quality scans of documents with a regular layout.
+
+    Please note that this is a demo. 24/7 functionality is not quaranteed.
+
+    # Monen vuosisadan käsialantunnistus malli
+    
+    Käsialantunnistus putkessa on kolme mallia: Tekstialueen tunnistus, tekstirivien tunnistus ja tekstintunnistus. Mallit on koulutettu pääosin 
+    käsinkirjoitetulla Kansallisarkiston aineistolla, joka ajoittuu 1600-luvulta 1900-luvulle. 
+
+    Tunnistettavan kuvan voi ladata *Input image* nimiseen laatikkoon *Text content* välilehdellä. Prosessointi käynnistetään *Process image* 
+    painikkeesta ja kuva on prosessoitu tunnistettu teksti ilmaantuu oikeaan laatikkoon nimeltä *Predicted text content*. Tekstialueen ja 
+    tekstirivien tunnistuksia voi tarkastella *Text regions* ja *Text lines* välilehdiltä. Parhaimman lopputuloksen saa hyvälaatuisilla kuvilla,
+    joissa on normaalin kirjan mukainen taitto.  
+    
+    Huom! Tämä on demo sovellus. Ympärivuorokautista toimivuutta ei luvata.
+    """)
     
     with gr.Tab("Text content"):
         with gr.Row():
