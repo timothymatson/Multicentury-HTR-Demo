@@ -1,14 +1,10 @@
-from optimum.onnxruntime import ORTModelForVision2Seq
-from transformers import TrOCRProcessor
+from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 import numpy as np
-import onnxruntime
 import math
 import cv2
-import os
 
 class TextRecognition:
     def __init__(self, 
-                processor_path, 
                 model_path, 
                 device = 'cuda:0', 
                 half_precision = False,
@@ -16,26 +12,22 @@ class TextRecognition:
         self.device = device
         self.half_precision = half_precision
         self.line_threshold = line_threshold
-        self.processor_path = processor_path
         self.model_path = model_path
         self.processor = self.init_processor()
+        print(self.processor)
         self.recognition_model = self.init_recognition_model()
         
     def init_processor(self):
         """Function for initializing the processor."""
         try:
-            processor = TrOCRProcessor.from_pretrained(self.processor_path, token=True)
-            return processor
+            return TrOCRProcessor.from_pretrained(self.model_path, subfolder="processor")
         except Exception as e:
             print('Failed to initialize processor: %s' % e)
     
     def init_recognition_model(self):
         """Function for initializing the text detection model."""
-        sess_options = onnxruntime.SessionOptions()
-        sess_options.intra_op_num_threads = 3
-        sess_options.inter_op_num_threads = 3
         try:
-            recognition_model = ORTModelForVision2Seq.from_pretrained(self.model_path, token=True, session_options=sess_options, provider="CUDAExecutionProvider")
+            recognition_model = VisionEncoderDecoderModel.from_pretrained(self.model_path)
             return recognition_model
         except Exception as e:
             print('Failed to load the text recognition model: %s' % e)
